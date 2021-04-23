@@ -1,0 +1,52 @@
+﻿
+
+@{
+    ViewData["Title"] = "DeleteStudent";
+}
+
+
+<h1>DeleteStudent</h1>
+
+<form id="form1">
+    <p>
+        <label for="StudentID">Person ID to Delete:</label>
+        <input type="text" id="Id" class="form-control" name="Id" />
+    </p>
+
+    <p>
+        <input type="button" id="button1" class="btn btn-danger"  value="Delete" />
+        <span id="ResponseSpan"></span>
+    </p>
+
+</form>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+<!-- jquery code -->
+<script type="text/javascript">
+    $(function () {
+
+        $("#button1").click(
+            function () {
+                debugger;
+                //ajax code
+                $.ajax({
+                    url: 'https://localhost:44396/api/People/' + $("#Id").val(),
+                    data: {},
+                    type: "delete",
+                    success: function (response) {
+
+                        $("#ResponseSpan").html(response);
+                        alert("Record Deleted Successfully");
+                        $("#Id").val('');
+                    },
+                    error: function (jqXHR, textStatus, err) {
+                        $("#ResponseSpan").html(err);
+                    }
+                });
+
+            });
+
+    });
+</script>
+

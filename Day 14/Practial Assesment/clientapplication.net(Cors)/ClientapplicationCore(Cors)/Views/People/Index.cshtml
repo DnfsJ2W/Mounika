@@ -1,0 +1,63 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered" id="Persontable">
+    <tr>
+        <th>ID</th>
+        <th>Person Name</th>
+        <th>Location</th>
+    </tr>
+</table>
+
+<input type="button" value="GetALLPersons" id="GetPerson" class="btn btn-success" />
+
+
+
+<span id="ResponseSpan">  </span>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#GetPerson").click(
+            function () {
+
+                //ajax code
+                $.ajax({
+                    url: 'https://localhost:44386/api/People',
+                    data: {},
+                    type: "get",
+                    success: function (response) {
+
+                        $("#Persontable tr:gt(0)").remove();
+
+                        $.each(response, function (i, item) {
+                            $("#Persontable").append
+                                ("<tr><td>" + item.id + "</td> <td>" + item.name + "</td> <td>" + item.location + "</td>  </tr>");
+                        });
+
+                    },
+
+                    error: function (jqXHR, textStatus, err) {
+                        $("#ResponseSpan").html(err);
+                    }
+                });
+
+            });
+
+    });
+</script>
+
+
+

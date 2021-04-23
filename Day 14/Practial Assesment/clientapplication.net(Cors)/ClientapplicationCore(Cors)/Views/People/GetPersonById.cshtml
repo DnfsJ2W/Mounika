@@ -1,0 +1,67 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "GetPersonById";
+}
+
+<label for="PersonIdID">ID:</label>
+<input type="text" id="ID" class="form-control" />
+
+<input type="button" value="GetPerson(using Web API)" class="btn btn-success" id="button1" />
+
+<span id="ResponseSpan"></span>
+
+<p>
+    <span>Person ID:</span>
+    <span style="font-weight:bold" id="PersonIDSpan">  </span>
+</p>
+
+<p>
+    <span>Person Name:</span>
+    <span style="font-weight:bold" id="PersonNameSpan">  </span>
+</p>
+
+<p>
+    <span>Location:</span>
+    <span style="font-weight:bold" id="LocationSpan">  </span>
+</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#button1").click(function () {
+
+            debugger;
+
+            $.ajax({
+
+                url: 'https://localhost:44386/api/People/' + $("#ID").val(),
+                data: {},
+                type: "get",
+
+                success: function (response) {
+                    $("#PersonIDSpan").html(response.id);
+                    $("#PersonNameSpan").html(response.name);
+                    $("#LocationSpan").html(response.location);
+
+                },
+                error: function (jqXHR, textStatus, err) {
+                    $("#ResponseSpan").html(err);
+                }
+            });
+
+        });
+
+    });
+
+</script>
+
+
+
+
+

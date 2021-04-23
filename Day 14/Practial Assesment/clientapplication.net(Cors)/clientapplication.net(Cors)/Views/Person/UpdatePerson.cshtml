@@ -1,0 +1,70 @@
+﻿
+
+@{
+    ViewData["Title"] = "UpdateStudent";
+}
+
+<h1>UpdateStudent</h1>
+
+<form id="form1">
+    
+    <p>
+        <label for="Id">Person ID to Update:</label>
+        <input type="text" id="Id" class="form-control" name="Id" />
+    </p>
+
+    <p>
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" class="form-control " name="Name" />
+    </p>
+
+    <p>
+        <label for="location">Location:</label>
+        <input type="text" id="Location" class="form-control" name="Location" />
+    </p>
+
+
+    <p>
+        <input type="button" id="button1" class="btn btn-success" value="Update" />
+        <span id="ResponseSpan"></span>
+    </p>
+
+</form>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!-- jquery code -->
+<script type="text/javascript">
+    $(function () {
+
+        $("#button1").click(
+        function () {
+
+
+                var person = { id: $('#Id').val(), name: $('#Name').val(), location: $('#Location').val() };
+
+
+
+            //ajax code
+                $.ajax({
+                    url: 'https://localhost:44396/api/People/' + $("#Id").val(),
+                data: JSON.stringify(person),
+                    type: "put",
+                    dataType: "json",
+                    contentType:"application/json",
+                success: function (response) {
+                    $("#ResponseSpan").html(response);
+                    alert("Record Updated Successfully");
+                    $("#Id,#Name,#Location").val('');
+                    
+                },
+                error: function (jqXHR, textStatus, err) {
+                    $("#ResponseSpan").html(err);
+                }
+            });
+
+        });
+
+    });
+</script>
+
+
+
